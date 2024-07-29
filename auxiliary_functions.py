@@ -1,7 +1,6 @@
 import json
 import pickle
 from openai import OpenAI
-from tqdm import tqdm
 from scipy.spatial import distance
 from sentence_transformers import SentenceTransformer
 
@@ -53,7 +52,7 @@ def find_similar_article(input_article_embedding, data, bias):
     print("Finding most similar article.")
     best_similarity = 0
     most_similar_article_index = None
-    for index, article in tqdm(data[data.media_bias == bias].iterrows()):
+    for index, article in data[data.media_bias == bias].iterrows():
         similarity = cosine_similarity(input_article_embedding, article.summery_embedding)
         if best_similarity < similarity:
             best_similarity = similarity
